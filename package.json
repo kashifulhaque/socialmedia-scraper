@@ -1,6 +1,6 @@
 {
   "name": "tiktok-scraper",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "description": "",
   "main": "app.js",
   "scripts": {
@@ -8,7 +8,6 @@
   },
   "keywords": [],
   "author": "kashifulhaque",
-  "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
     "tiktok-scraper": "^1.1.19"

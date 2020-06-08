@@ -1,0 +1,9 @@
+{
+  "tiktok": "/tiktok",
+  "tiktokUser": "/user",
+  "tiktokHashtag": "/hashtag",
+  "tiktokTrending": "/trending",
+  "tiktokUserVideos": "/uservideos",
+  "tiktokVideoMetadata": "/video/metadata",
+  "tiktokHashtagMetadata": "/hashtag/metadata"
+}
