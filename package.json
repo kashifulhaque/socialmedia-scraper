@@ -7,10 +7,13 @@
     "start": "node app.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "kashifulhaque",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
     "tiktok-scraper": "^1.1.19"
+  },
+  "engines": {
+    "node": "12.x"
   }
 }
