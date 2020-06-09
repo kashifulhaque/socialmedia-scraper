@@ -10,7 +10,9 @@ module.exports.getTrending = async function (count = 10, noWatermark = true) {
       number: count,
       noWatermark: noWatermark,
     });
-    return posts.collector;
+
+    if (!posts) return null;
+    else return posts.collector;
   } catch (err) {
     console.error(err);
   }

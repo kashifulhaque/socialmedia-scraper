@@ -12,7 +12,9 @@ module.exports.getVideoMetadata = async function (url) {
   } else {
     try {
       const metadata = await getVideoMeta(url, {});
-      return metadata;
+
+      if (!metadata) return null;
+      else return metadata;
     } catch (err) {
       console.error(err);
     }

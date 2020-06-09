@@ -9,7 +9,9 @@
   "keywords": [],
   "author": "kashifulhaque",
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
     "express": "^4.17.1",
+    "instagram-private-api": "^1.40.1",
     "tiktok-scraper": "^1.1.19"
   },
   "engines": {

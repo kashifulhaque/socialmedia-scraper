@@ -1,9 +1,10 @@
 {
-  "tiktok": "/tiktok",
-  "tiktokUser": "/user",
-  "tiktokHashtag": "/hashtag",
-  "tiktokTrending": "/trending",
-  "tiktokUserVideos": "/uservideos",
-  "tiktokVideoMetadata": "/video/metadata",
-  "tiktokHashtagMetadata": "/hashtag/metadata"
+  "tiktokUser": "/tiktok/user",
+  "tiktokHashtag": "/tiktok/hashtag",
+  "tiktokTrending": "/tiktok/trending",
+  "tiktokUserVideos": "/tiktok/uservideos",
+  "tiktokVideoMetadata": "/tiktok/video/metadata",
+  "tiktokHashtagMetadata": "/tiktok/hashtag/metadata",
+
+  "igUser": "/ig/user"
 }

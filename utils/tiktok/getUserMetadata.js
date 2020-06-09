@@ -11,7 +11,8 @@ module.exports.getUserMetadata = async function (username = "tiktok", count) {
       noWaterMark: true,
     });
 
-    return metadata;
+    if (!metadata) return null;
+    else return metadata;
   } catch (err) {
     console.log(err);
   }

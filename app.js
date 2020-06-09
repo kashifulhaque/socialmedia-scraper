@@ -30,69 +30,97 @@ const userMetadata = require("./utils/tiktok/getUserMetadata");
 const videoMetadata = require("./utils/tiktok/getVideoMetadata");
 const hashtagMetadata = require("./utils/tiktok/getHashtagMetadata");
 
+// Import IG utils
+const igUser = require("./utils/instagram/getUser");
+
 // Initialize Express
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 /* Express app routes */
 // TikTok
-const tiktokRoute = require("./utils/apiRoutes.json");
+const apiEndpoint = require("./utils/apiRoutes.json");
 
 /* Set up API routes */
 // Sample route: /user?username=tiktok
-const routeTikTokUser = tiktokRoute.tiktok + tiktokRoute.tiktokUser;
-app.get(routeTikTokUser, async (req, res) => {
+app.get(apiEndpoint.tiktokUser, async (req, res) => {
   const query = await req.query["username"];
   const metadata = await userMetadata.getUserMetadata(query, USER_COUNT);
 
-  res.json(metadata);
+  if (metadata == null) res.status(404).send(`${query} does not exist.`);
+  else res.json(metadata);
 });
 
 // Sample route: /uservideos?username=tiktok&count=10
-const routeTikTokUserVideos = tiktokRoute.tiktok + tiktokRoute.tiktokUserVideos;
-app.get(routeTikTokUserVideos, async (req, res) => {
+app.get(apiEndpoint.tiktokUserVideos, async (req, res) => {
   const query = await req.query["username"];
   const count = await req.query["count"];
   const metadata = await userVideos.getUserVideos(query, count);
 
-  res.json(metadata);
+  if (metadata == null) res.status(404).send(`${query} does not exist.`);
+  else res.json(metadata);
 });
 
 // Sample route: /hashtag?tag=tiktok
-const routeTikTokHashtag = tiktokRoute.tiktok + tiktokRoute.tiktokHashtag;
-app.get(routeTikTokHashtag, async (req, res) => {
+app.get(apiEndpoint.tiktokHashtag, async (req, res) => {
   /* This route is NOT returning any data as of now */
   const query = await req.query["tag"];
   const hashtagData = await getHashtag.getHashtag(query, scraperOptions);
 
-  res.json(hashtagData);
+  if (hashtagData == null) res.status(404).send(`${query} does not exist.`);
+  else res.json(hashtagData);
 });
 
 // Sample route: /hashtag/metadata?tag=tiktok
-const routeTikTokHashtagMetadata =
-  tiktokRoute.tiktok + tiktokRoute.tiktokHashtagMetadata;
-app.get(routeTikTokHashtagMetadata, async (req, res) => {
+app.get(apiEndpoint.tiktokHashtagMetadata, async (req, res) => {
   const query = await req.query["tag"];
   const metadata = await hashtagMetadata.getHashtagMetadata(query);
 
-  res.json(metadata);
+  if (metadata == null) res.status(404).send(`${query} does not exist.`);
+  else res.json(metadata);
 });
 
 // Sample route: /trending
-const routeTikTokTrending = tiktokRoute.tiktok + tiktokRoute.tiktokTrending;
-app.get(routeTikTokTrending, async (req, res) => {
+app.get(apiEndpoint.tiktokTrending, async (req, res) => {
   const metadata = await trending.getTrending(NUMBER_OF_POSTS, NO_WATERMARK);
 
-  res.json(metadata);
+  if (metadata == null) res.status(404).send("Unable to load trending videos.");
+  else res.json(metadata);
 });
 
 // Sample route: /video/metadata?url=https://www.tiktok.com/@tiktok/video/6800111723257941253
-const routeTikTokVideoMetadata =
-  tiktokRoute.tiktok + tiktokRoute.tiktokVideoMetadata;
-app.get(routeTikTokVideoMetadata, async (req, res) => {
+app.get(apiEndpoint.tiktokVideoMetadata, async (req, res) => {
   const url = await req.query["url"];
   const metadata = await videoMetadata.getVideoMetadata(url);
 
-  res.json(metadata);
+  if (metadata == null)
+    res
+      .status(404)
+      .send(
+        `${url} is invalid. Make sure your URL is formatted like this: https://www.tiktok.com/@tiktok/video/6800111723257941253`
+      );
+  else res.json(metadata);
+});
+
+// Sample route: /ig/user
+app.post(apiEndpoint.igUser, async (req, res) => {
+  const { body } = req;
+  if (
+    body.username == null ||
+    body.username == "" ||
+    body.password == null ||
+    body.password == ""
+  )
+    return res.status(400).send("Empty username and/or password");
+
+  const posts = await igUser.getUserPosts(
+    body.username,
+    body.password,
+    body.count
+  );
+  if (posts != null) res.json(posts);
+  else res.status(400);
 });
 
 // Start the Express server

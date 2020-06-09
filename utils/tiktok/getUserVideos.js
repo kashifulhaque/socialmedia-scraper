@@ -15,7 +15,8 @@ module.exports.getUserVideos = async function (
       noWaterMark: true,
     });
 
-    return data.collector;
+    if (!data) return null;
+    else return data.collector;
   } catch (err) {
     console.log(err);
   }

@@ -8,7 +8,9 @@ const { hashtag } = require("tiktok-scraper");
 module.exports.getHashtag = async function (tag = "tiktok", options) {
   try {
     const posts = await hashtag(tag, options);
-    return posts;
+
+    if (!posts) return null;
+    else return posts;
   } catch (err) {
     console.error(err);
   }

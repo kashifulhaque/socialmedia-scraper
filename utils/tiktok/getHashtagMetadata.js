@@ -7,7 +7,9 @@ const { getHashtagInfo } = require("tiktok-scraper");
 module.exports.getHashtagMetadata = async function (tag = "tiktok") {
   try {
     const metadata = await getHashtagInfo(tag, {});
-    return metadata;
+
+    if (!metadata) return null;
+    else return metadata;
   } catch (err) {
     console.error(err);
   }
