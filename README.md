@@ -1,6 +1,6 @@
-# tiktok-scraper
+# socialmedia-scraper
 
-A TikTok scraper built using Node.js
+Social Media scraper using Node.js
 
 ### Routes
 
