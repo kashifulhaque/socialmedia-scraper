@@ -1,0 +1,11 @@
+---
+application:
+  name: "socialmedia-scraper"
+  project: "socialmedia-scraper"
+  organization: "QoveryCommunity"
+routers:
+- name: "main-socialmedia-scraper"
+  routes:
+  - application_name: "socialmedia-scraper"
+    paths:
+    - "/*"
